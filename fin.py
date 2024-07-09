@@ -3,12 +3,12 @@ from prophet import Prophet
 import matplotlib.pyplot as plt
 
 # Load the dataset
-file_path = 'C:/Users/Alex/Desktop/Project/datasets1.csv'
+file_path = 'C:/Users/User/Documents/GitHub/MZUCEproject/dataset.csv'
 df = pd.read_csv(file_path)
 
 
 # Rename columns to fit Prophet's requirements
-df.rename(columns={'Date': 'ds', 'Amount': 'y'}, inplace=True)
+df.rename(columns={'DATE': 'ds', 'PRICE': 'y'}, inplace=True)
 
 # Ensure the date column is in datetime format
 df['ds'] = pd.to_datetime(df['ds'])
