@@ -34,6 +34,12 @@ df3=df3[df3['ds'].dt.hour < 19]
 # Fit the model on the dataset
 model.fit(df3)
 
+# Assuming df is your DataFrame
+df3_description = df3.describe()
+
+# Print the summary statistics
+print(df3_description)
+
 # Create a dataframe with future dates for forecasting
 future = model.make_future_dataframe(periods=365, freq='H') 
 
