@@ -50,6 +50,13 @@ print(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].head())
 fig = model.plot(forecast)
 fig2 = model.plot_components(forecast)
 
+# Adjust the x-axis format to include time
+fig.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%Y-%m-%d %H:%M:%S'))
+fig.autofmt_xdate()
+fig2.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%Y-%m-%d %H:%M:%S'))
+fig2.autofmt_xdate()
+
+
 
 plt.show()
 
