@@ -16,11 +16,29 @@ df['ds'] = pd.to_datetime(df['ds'])
 # Initialize the Prophet model
 model = Prophet()
 
+# Dataframe copy ah duh lo zat darkar paih na
+
+df2=df.copy()
+
+df2['ds'] = pd.to_datetime(df2['ds'])
+
+df2=df2[df2['ds'].dt.hour > 6]
+
+df3=df2.copy()
+
+df3['ds'] = pd.to_datetime(df3['ds'])
+
+df3=df3[df3['ds'].dt.hour < 19]
+
+
 # Fit the model on the dataset
-model.fit(df)
+model.fit(df3)
 
 # Create a dataframe with future dates for forecasting
-future = model.make_future_dataframe(periods=60)  # Forecasting for the next 30 days
+future = model.make_future_dataframe(periods=365, freq='H') 
+
+# Filter out the specific times in the future dataframe
+future = future[(future['ds'].dt.hour > 6) & (future['ds'].dt.hour < 19)]
 
 # Make the forecast
 forecast = model.predict(future)
@@ -31,6 +49,8 @@ print(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].head())
 # Plot the forecast
 fig = model.plot(forecast)
 fig2 = model.plot_components(forecast)
+
+
 plt.show()
 
 #original
