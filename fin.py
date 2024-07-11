@@ -41,7 +41,7 @@ df3_description = df3.describe()
 print(df3_description)
 
 # Create a dataframe with future dates for forecasting
-future = model.make_future_dataframe(periods=2000, freq='H') 
+future = model.make_future_dataframe(periods=4*365*24, freq='H') 
 
 # Filter out the specific times in the future dataframe
 future = future[(future['ds'].dt.hour > 6) & (future['ds'].dt.hour < 19)]
@@ -50,7 +50,7 @@ future = future[(future['ds'].dt.hour > 6) & (future['ds'].dt.hour < 19)]
 forecast = model.predict(future)
 
 # Display the forecast
-print(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].head())
+print(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail())
 
 # Plot the forecast
 fig = model.plot(forecast)
