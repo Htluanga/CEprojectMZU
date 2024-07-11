@@ -3,12 +3,12 @@ from prophet import Prophet
 import matplotlib.pyplot as plt
 
 # Load the dataset
-file_path = 'C:/Users/Alex/Documents/Project/CEprojectMZU/dataset.csv'
+file_path = 'C:/Users/Alex/Documents/Project/MZUCEproject/DDD.csv'
 df = pd.read_csv(file_path)
 
 
 # Rename columns to fit Prophet's requirements
-df.rename(columns={'DATE': 'ds', 'PRICE': 'y'}, inplace=True)
+df.rename(columns={'DATE': 'ds','PRICE': 'y'}, inplace=True)
 
 # Ensure the date column is in datetime format
 df['ds'] = pd.to_datetime(df['ds'])
@@ -41,7 +41,7 @@ df3_description = df3.describe()
 print(df3_description)
 
 # Create a dataframe with future dates for forecasting
-future = model.make_future_dataframe(periods=365, freq='H') 
+future = model.make_future_dataframe(periods=2000, freq='H') 
 
 # Filter out the specific times in the future dataframe
 future = future[(future['ds'].dt.hour > 6) & (future['ds'].dt.hour < 19)]
