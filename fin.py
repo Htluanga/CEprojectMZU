@@ -2,6 +2,9 @@ import pandas as pd
 from prophet import Prophet
 import matplotlib.pyplot as plt
 from pymongo import MongoClient
+import warnings
+
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 # Connect to the MongoDB client
 client = MongoClient('mongodb+srv://CE:project1@mzuceproject.kyvn8sq.mongodb.net/')
