@@ -3,11 +3,14 @@ from prophet import Prophet
 import matplotlib.pyplot as plt
 from pymongo import MongoClient
 import numpy as np
+import warnings
+
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 # Connect to the MongoDB client
 client = MongoClient('mongodb+srv://CE:project1@mzuceproject.kyvn8sq.mongodb.net/')
-db = client['Data']  # Database name
-collection = db['Fin']  # Collection name
+db = client['MZU']  # Database name
+collection = db['Data']  # Collection name
 
 # Fetch the data from MongoDB
 data = list(collection.find())
