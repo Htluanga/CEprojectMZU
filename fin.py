@@ -2,15 +2,15 @@ import pandas as pd
 from prophet import Prophet
 import matplotlib.pyplot as plt
 from pymongo import MongoClient
+import numpy as np
 
 # Connect to the MongoDB client
 client = MongoClient('mongodb+srv://CE:project1@mzuceproject.kyvn8sq.mongodb.net/')
-db = client['Data'] # Database name
-collection = db['Fin'] # Collection name
+db = client['Data']  # Database name
+collection = db['Fin']  # Collection name
 
 # Fetch the data from MongoDB
 data = list(collection.find())
-
 
 # Convert the fetched data to a DataFrame
 df = pd.DataFrame(data)
@@ -19,10 +19,8 @@ df = pd.DataFrame(data)
 print("Columns in the DataFrame:", df.columns)
 print("First few rows of the DataFrame:\n", df.head())
 
-
 # Rename columns to fit Prophet's requirements
 df.rename(columns={'DATE': 'ds', 'PRICE': 'y'}, inplace=True)
-
 
 # Print the first few rows after renaming and date conversion
 print("First few rows after renaming and date conversion:\n", df.head())
@@ -34,18 +32,17 @@ model = Prophet()
 model.add_country_holidays(country_name='IN')
 
 # Exclude the time between 9 PM to 6 AM
-df2 = df[df['ds'].dt.hour > 6]
-df3 = df2[df2['ds'].dt.hour < 19]
+df2 = df[(df['ds'].dt.hour > 6) & (df['ds'].dt.hour < 19)]
 
 # Print the first few rows after filtering
-print("First few rows after filtering:\n", df3.head())
+print("First few rows after filtering:\n", df2.head())
 
 # Fit the model on the dataset
-model.fit(df3)
+model.fit(df2)
 
 # Print the summary statistics
-df3_description = df3.describe()
-print("Summary statistics of df3:\n", df3_description)
+df2_description = df2.describe()
+print("Summary statistics of df2:\n", df2_description)
 
 # Create a dataframe with future dates for forecasting
 future = model.make_future_dataframe(periods=2*365*24, freq='H')
