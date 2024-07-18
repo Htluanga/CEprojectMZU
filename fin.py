@@ -10,7 +10,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 # Connect to the MongoDB client
 client = MongoClient('mongodb+srv://CE:project1@mzuceproject.kyvn8sq.mongodb.net/')
 db = client['MZU']  # Database name
-collection = db['Data']  # Collection name
+collection = db['CE']  # Collection name
 
 # Fetch the data from MongoDB
 data = list(collection.find())
