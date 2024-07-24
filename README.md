@@ -1,2 +1,0 @@
-# CEprojectMZU
-Training project, forcasting
