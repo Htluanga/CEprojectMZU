@@ -41,7 +41,7 @@ df2 = df[df['ds'].dt.hour > 6]
 df3 = df2[df2['ds'].dt.hour < 19]
 
 # Print the first few rows after filtering
-print("First few rows after filtering:\n", df3.head())
+print("First few rows after filtering:\n", df3.head(7))
 
 # Fit the model on the dataset
 model.fit(df3)
@@ -51,7 +51,7 @@ df3_description = df3.describe()
 print("Summary statistics of df3:\n", df3_description)
 
 # Create a dataframe with future dates for forecasting
-future = model.make_future_dataframe(periods=2*365*24, freq='H')
+future = model.make_future_dataframe(periods=30*24, freq='h')
 
 # Filter out the specific times in the future dataframe
 future = future[(future['ds'].dt.hour > 7) & (future['ds'].dt.hour < 19)]
